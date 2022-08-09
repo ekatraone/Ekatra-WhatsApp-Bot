@@ -1,0 +1,23 @@
+{
+  "name": "ekatra-whatsapp-chatbot",
+  "version": "1.0.0",
+  "description": "Ekatra Whatsapp chatbot is a node.js based interactive chatbot that helps deliver course contents to students via WhatsApp on regular basis.",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekatraone/Ekatra-WhatsApp-Bot.git"
+  },
+  "author": "Ramsha Shaikh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ekatraone/Ekatra-WhatsApp-Bot/issues"
+  },
+  "homepage": "https://github.com/ekatraone/Ekatra-WhatsApp-Bot#readme"
+}

@@ -2,7 +2,7 @@
 
 const request = require('request-promise')
 const WA = require('./wati');
-const us = require('./update')
+const airtable = require('./airtable-methods')
 var Airtable = require('airtable');
 require('dotenv').config("./env")
 
@@ -16,7 +16,7 @@ var base = new Airtable({ apiKey: process.env.apiKey }).base(process.env.base);
  * @param {number} number - Phone number
  */
 async function sendMediaFile(cDay, cModule, number) {
-    var course_tn = await us.findTable(number)
+    var course_tn = await airtable.findTable(number)
 
     const records = await base(course_tn).select({
         filterByFormula: "({Day} =" + cDay + ")",

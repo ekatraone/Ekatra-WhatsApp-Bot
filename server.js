@@ -1,14 +1,11 @@
 // external packages
 const express = require('express');
 require('dotenv').config("./env");
-const test = require('./test');
-const WA = require('./wati');
-const cors = require('cors');
+const test = require('./main');
 
 const webApp = express();
 
 webApp.use(express.json());
-webApp.use(cors());
 
 
 // Route for WhatsApp

@@ -6,7 +6,7 @@
 var Airtable = require('airtable');
 require('dotenv').config();
 const WA = require('./wati');
-const us = require('./update');
+const airtable = require('./airtable-methods');
 const sendContent = require('./attachments');
 
 var base = new Airtable({ apiKey: process.env.apiKey }).base(process.env.base);
@@ -29,10 +29,10 @@ async function store_responses(number, value) {
         let currentModule = record.get("Next Module")
         let currentDay = record.get("Next Day")
 
-        let title = await us.findTitle(currentDay, currentModule)
-        let existingValues = await us.findRecord(id)
+        let title = await airtable.findTitle(currentDay, currentModule)
+        let existingValues = await airtable.findRecord(id)
 
-        // If the exisitng value of Response field is empty
+        // If the existing value of Response field is empty
         if (existingValues == undefined) {
             existingValues = ""
             newValues = title + "\n" + value
@@ -47,7 +47,7 @@ async function store_responses(number, value) {
             await findContent(currentDay, currentModule, number)
         }
         else {
-            us.updateField(id, "Response", newValues).then(async () => {
+            airtable.updateField(id, "Response", newValues).then(async () => {
                 console.log("New Feedback recorded")
                 await findContent(currentDay, currentModule, number)
 
@@ -62,7 +62,7 @@ async function store_responses(number, value) {
  * @param {number} number - Phone number 
  */
 async function findContent(currentDay, module_No, number) {
-    var course_tn = await us.findTable(number)
+    var course_tn = await airtable.findTable(number)
     const records = await base(course_tn).select({
         filterByFormula: "({Day} =" + currentDay + ")",
         view: "Grid view",
@@ -107,7 +107,7 @@ async function findContent(currentDay, module_No, number) {
  * @param {number} number - Phone number
  */
 async function sendList(currentDay, module_No, number) {
-    var course_tn = await us.findTable(number)
+    var course_tn = await airtable.findTable(number)
     const records = await base(course_tn).select({
         filterByFormula: "({Day} =" + currentDay + ")",
         view: "Grid view",
@@ -191,7 +191,7 @@ async function sendModuleContent(number) {
  */
 
 async function findModule(currentDay, module_No, number) {
-    var course_tn = await us.findTable(number)
+    var course_tn = await airtable.findTable(number)
 
     const records = await base(course_tn).select({
         filterByFormula: "({Day} =" + currentDay + ")",
@@ -303,16 +303,16 @@ async function markModuleComplete(number) {
         if (next_module > 10) {
 
 
-            us.updateField(id, "Module Completed", current_module)
+            airtable.updateField(id, "Module Completed", current_module)
 
-            us.updateField(id, "Next Module", 0)
+            airtable.updateField(id, "Next Module", 0)
             sendEndDayMessage(cDay, number);
         }
 
         else {
 
-            us.updateField(id, "Next Module", next_module)
-            us.updateField(id, "Module Completed", current_module)
+            airtable.updateField(id, "Next Module", next_module)
+            airtable.updateField(id, "Module Completed", current_module)
 
             findModule(cDay, next_module, number)
 
@@ -336,7 +336,7 @@ async function markDayComplete(number) {
     }).all();
 
     total_days = 0
-    var total_days = await us.totalDays(number)
+    var total_days = await airtable.totalDays(number)
 
     records_Student.forEach(function (record) {
         console.log("Entered markDayComplete")
@@ -348,18 +348,18 @@ async function markDayComplete(number) {
         if (comp_day <= total_days) {
 
             try {
-                us.updateField(id, "Next Day", nextDay)
+                airtable.updateField(id, "Next Day", nextDay)
 
-                us.updateField(id, "Day Completed", comp_day)
+                airtable.updateField(id, "Day Completed", comp_day)
 
                 console.log("Completed Day " + comp_day)
 
                 //Reset module numbers
                 const next_mod = 1
                 const module_completed = 0
-                us.updateField(id, "Next Module", next_mod)
+                airtable.updateField(id, "Next Module", next_mod)
 
-                us.updateField(id, "Module Completed", module_completed)
+                airtable.updateField(id, "Module Completed", module_completed)
             }
             catch (e) {
                 console.log("Error while updating complete day " + e)
@@ -376,7 +376,7 @@ async function markDayComplete(number) {
  * @param {*} number - Phone number
  */
 async function sendEndDayMessage(currentDay, number) {
-    var course_tn = await us.findTable(number).then(`Table name of ${number} is ${course_tn}`).catch(e => console.log(e))
+    var course_tn = await airtable.findTable(number).then(`Table name of ${number} is ${course_tn}`).catch(e => console.log(e))
     const records = await base(course_tn).select({
         filterByFormula: "({Day} =" + currentDay + ")",
         view: "Grid view",

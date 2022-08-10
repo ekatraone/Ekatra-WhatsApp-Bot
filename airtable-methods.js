@@ -81,10 +81,11 @@ const findTable = async (number) => {
     })
   })
 }
+
 /**
  * Find the current value in Response column
  * @param {*} id 
- * @returns 
+ * @returns Response field value for the given ID.
  */
 const findRecord = async (id) => {
   return new Promise((resolve, reject) => {
@@ -96,8 +97,9 @@ const findRecord = async (id) => {
   }
   )
 }
+
 /**
- * Find the Title of the list message
+ * Find the Title and list options for a given module number
  * @param {number} currentDay 
  * @param {number} module_no 
  * @returns 

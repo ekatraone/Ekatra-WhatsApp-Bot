@@ -168,7 +168,7 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2022 [Ramsha Shaikh](https://github.com/ramshashaikh).<br />
-This project is [MIT](.) licensed.
+This project is [MIT](https://github.com/ekatraone/Ekatra-WhatsApp-Bot/blob/main/LICENSE) licensed.
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

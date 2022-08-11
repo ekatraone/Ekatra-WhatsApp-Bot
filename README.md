@@ -16,7 +16,7 @@
 <h1 align="center">Welcome to Ekatra WhatsApp Bot 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
-  <a href="." target="_blank">
+  <a href="https://github.com/ekatraone/Ekatra-WhatsApp-Bot/blob/main/README.md" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
   <a href="https://github.com/ekatraone/Ekatra-WhatsApp-Bot/blob/main/LICENSE" target="_blank">
